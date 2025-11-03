@@ -9,6 +9,8 @@ import '../../../models/assignment_model.dart';
 
 class CoursesController extends GetxController {
   bool isOnline = false;
+  bool isLoading = true;
+
   late StreamSubscription<List<ConnectivityResult>> _connectivitySub;
 
   //static courses
@@ -22,6 +24,8 @@ class CoursesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    isLoading = true;
+    update();
     _initConnectivityListener();
     _applyPendingFromHive();
     _applyAssignmentsFromApi();
@@ -97,6 +101,7 @@ class CoursesController extends GetxController {
         courses[idx]['pendingSync'] = false;
       }
     }
+    isLoading = false;
 
     update();
   }

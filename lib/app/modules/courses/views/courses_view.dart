@@ -1,5 +1,6 @@
 import 'package:ellie/app/routes/app_pages.dart';
 import 'package:ellie/app/widgets/course_card.dart';
+import 'package:ellie/app/widgets/course_list_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,9 @@ class CoursesView extends GetView<CoursesController> {
       ),
       body: GetBuilder<CoursesController>(
         builder: (controller) {
+          if (controller.isLoading) {
+            return const CourseListSkeleton();
+          }
           final courses = controller.courses;
 
           return Container(
